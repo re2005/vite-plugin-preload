@@ -1,5 +1,4 @@
 import { defaultOptions, PreloadOptions } from "./options";
-import { createFilter } from "@rollup/pluginutils";
 import { Plugin, ResolvedConfig } from "vite";
 import {
   appendToDom,
@@ -10,13 +9,8 @@ import {
 } from "./dom-utils";
 import prettier from "prettier";
 
-const jsFilter = createFilter(["**/*.*.js"]);
-const cssFilter = createFilter(["**/*.*.css"]);
-
-interface AdditionalLink {
-  type: "js" | "css";
-  path: string;
-}
+const jsFilter = (name: string) => name.indexOf('.js') > -1;
+const cssFilter = (name: string) => name.indexOf('.css') > -1;
 
 export default function VitePluginPreloadAll(
   options?: Partial<PreloadOptions>
